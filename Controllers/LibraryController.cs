@@ -56,7 +56,7 @@ namespace webapitwo.Controllers
 
         [HttpGet]
         [Route("/api/[controller]/Books")]
-        
+
 
         public ActionResult<List<Book>> GetAllBooks()
         {
@@ -67,7 +67,7 @@ namespace webapitwo.Controllers
 
         [HttpGet]
         [Route("/api/[controller]/{id}/Books")]
-        
+
 
         public ActionResult<Book> GetOneBook([FromRoute] int id)
         {
@@ -91,6 +91,88 @@ namespace webapitwo.Controllers
             return CreatedAtAction(nameof(GetUser), new { id = newbook.Id }, newbook);
         }
 
+
+        // shelf section
+
+
+        [HttpGet]
+        [Route("/api/[controller]/Shelf")]
+
+
+        public ActionResult<List<Shelf>> GetAllShelves()
+        {
+
+            var Shelf = _context.Shelves.ToList();
+            return Shelf;
+        }
+
+
+        [HttpGet]
+        [Route("/api/[controller]/{id}/Shelf")]
+
+
+        public ActionResult<Shelf> GetOneShelf([FromRoute] int id)
+        {
+
+            var shelf = _context.Shelves.FirstOrDefault(x => x.Id == id);
+            if (shelf == null)
+            {
+                return NotFound();
+            }
+            return shelf;
+        }
+
+        [HttpPost]
+        [Route("/api/[controller]/Shelf")]
+
+        public ActionResult<Shelf> AddShelf(string name)
+        {
+            var newshelf = new Shelf(name);
+            _context.Shelves.Add(newshelf);
+
+            return CreatedAtAction(nameof(GetUser), new { id = newshelf.Id }, newshelf);
+        }
+
+        //////////////////////// Bookshelf section
+
+        [HttpGet]
+        [Route("/api/[controller]/Bookshelf")]
+
+
+        public ActionResult<List<Bookshelf>> GetAllBookshelves()
+        {
+
+            var Bookshelf = _context.Bookshelves.ToList();
+            return Bookshelf;
+        }
+
+        [HttpGet]
+        [Route("/api/[controller]/{id}/Bookshelf")]
+
+
+        public ActionResult<Bookshelf> GetOneBookshelf([FromRoute] int id)
+        {
+
+            var Bookshelf = _context.Bookshelves.FirstOrDefault(x => x.Id == id);
+            if (Bookshelf == null)
+            {
+                return NotFound();
+            }
+            return Bookshelf;
+        }
+
         
+        [HttpPost]
+        [Route("/api/[controller]/Bookshelf")]
+
+        public ActionResult<Bookshelf> AddBookshelf(int Bookstatus)
+        {
+            var newBookshelf = new Bookshelf(Bookstatus);
+            _context.Bookshelves.Add(newBookshelf);
+
+            return CreatedAtAction(nameof(GetUser), new { id = newBookshelf.Id }, newBookshelf);
+        }
+
     }
+
 }

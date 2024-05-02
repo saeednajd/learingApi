@@ -15,9 +15,16 @@ namespace webapitwo.Model
 
 
         public int Bookshelfandshelfid { get; set; }
-        public  List<Bookshelfandshelf> Bookshelfandshelves { get; set; }
+        public List<Bookshelfandshelf> Bookshelfandshelves { get; set; }
 
         public int Bookshelfanduserid { get; set; }
         public List<Bookshelfanduser> Bookshelfandusers { get; set; }
+
+        public Bookshelf(int bookstatus)
+        {
+
+            Bookstatus = bookstatus;
+
+        }
     }
 }
