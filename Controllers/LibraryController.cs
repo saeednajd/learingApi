@@ -87,6 +87,7 @@ namespace webapitwo.Controllers
         {
             var newbook = new Book(Title, pages);
             _context.Books.Add(newbook);
+            _context.SaveChanges();
 
             return CreatedAtAction(nameof(GetUser), new { id = newbook.Id }, newbook);
         }
@@ -129,6 +130,7 @@ namespace webapitwo.Controllers
         {
             var newshelf = new Shelf(name);
             _context.Shelves.Add(newshelf);
+            _context.SaveChanges();
 
             return CreatedAtAction(nameof(GetUser), new { id = newshelf.Id }, newshelf);
         }
@@ -161,7 +163,7 @@ namespace webapitwo.Controllers
             return Bookshelf;
         }
 
-        
+
         [HttpPost]
         [Route("/api/[controller]/Bookshelf")]
 
@@ -173,6 +175,32 @@ namespace webapitwo.Controllers
             return CreatedAtAction(nameof(GetUser), new { id = newBookshelf.Id }, newBookshelf);
         }
 
+
+        // bookshelf put section
+
+        // [HttpPut]
+        // [Route("/api/[controller]/Bookshelf")]
+
+        // public ActionResult<Bookshelf> UpdateBookshelf([FromBody] int bookshelfid,int userid, int bookid, int shelfid, int bookstatus)
+        // {
+
+        //     var mybookshelf = _context.Bookshelves.Find(bookshelfid);
+
+        //     var newbooshelfandshelf = new Bookshelfandshelf(mybookshelf.Id, shelfid);
+
+            
+        //     var shelfToUpdate = _context.Shelves.FirstOrDefault(s => s.Id == shelfid);
+        //     if (shelfToUpdate != null)
+        //     {
+        //         shelfToUpdate.Bookshelfandshelfid= newbooshelfandshelf.Id;
+        //         _context.SaveChanges();
+        //     }
+        //     else{
+        //         return NotFound();
+        //     }
+
+            
+        // }
     }
 
 }

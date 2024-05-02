@@ -12,5 +12,11 @@ namespace webapitwo.Model
         public int Shelfid { get; set; }
         public Bookshelf Bookshelf { get; set; }
         public Shelf Shelf { get; set; }
+
+        public Bookshelfandshelf(int bookshelfid,int shelfid){
+            Bookshelfid = bookshelfid;
+            Shelfid = shelfid;
+
+        }
     }
 }
