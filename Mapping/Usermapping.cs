@@ -15,7 +15,6 @@ namespace webapitwo.Mapping
             builder.ToTable("User");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Username).IsRequired().HasMaxLength(255);
-            builder.HasMany(x => x.Shelves).WithOne(x => x.Oneuser).HasForeignKey(x => x.Userid);
             builder.HasMany(x => x.Bookshelfandusers).WithOne(x => x.User).HasForeignKey(x => x.Userid);
         }
     }

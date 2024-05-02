@@ -10,11 +10,11 @@ namespace webapitwo
 {
     public class Libcontext : DbContext
     {
-        DbSet<User> Users { get; set; }
-        DbSet<Book> Books { get; set; }
-        DbSet<Shelf> Shelves { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Shelf> Shelves { get; set; }
 
-        DbSet<Bookshelf> Bookshelves { get; set; }
+        public DbSet<Bookshelf> Bookshelves { get; set; }
 
         public Libcontext(DbContextOptions options) : base(options)
         {
@@ -24,11 +24,9 @@ namespace webapitwo
         {
             modelBuilder.ApplyConfiguration(new Usermapping());
             modelBuilder.ApplyConfiguration(new Shelfmapping());
-            modelBuilder.ApplyConfiguration(new Userandbookmapping());
             modelBuilder.ApplyConfiguration(new Bookshelfmapping());
             modelBuilder.ApplyConfiguration(new Bookshelfandshelfmapping());
             modelBuilder.ApplyConfiguration(new Bookshelfandbookmapping());
-            modelBuilder.ApplyConfiguration(new Bookandshelfmapping());
             modelBuilder.ApplyConfiguration(new Boohshelfandusermapping());
 
             base.OnModelCreating(modelBuilder);

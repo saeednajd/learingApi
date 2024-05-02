@@ -14,9 +14,7 @@ namespace webapitwo.Mapping
         {
             builder.ToTable("Bookshelf");
             builder.HasKey(x=>x.Id);
-            builder.HasMany(x=>x.Bookshelfandbooks).WithOne(x=>x.Bookshelf).HasForeignKey(x=>x.Bookshelfid);
-            builder.HasMany(X=>X.Bookshelfandshelves).WithOne(x=>x.Bookshelf).HasForeignKey(X=>X.Bookshelfid);
-            builder.HasMany(x=>x.Bookshelfandusers).WithOne(x=>x.Bookshelf).HasForeignKey(x=>x.Bookshelfid);
+            
         }
     }
 }

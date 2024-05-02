@@ -11,9 +11,6 @@ namespace webapitwo.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public int Userid { get; set; }
-        public User Oneuser { get; set; }
-        public int Bookandshelfid { get; set; }
-        public List<Bookandshelf> Bookandshelfs { get; set; }
 
         public int Bookshelfandshelfid { get; set; }
         public List<Bookshelfandshelf> Bookshelfandshelfs { get; set; }

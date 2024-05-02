@@ -12,8 +12,8 @@ using webapitwo;
 namespace webapitwo.Migrations
 {
     [DbContext(typeof(Libcontext))]
-    [Migration("20240501102232_firstmi")]
-    partial class firstmi
+    [Migration("20240502062447_changingbookshelfmapping")]
+    partial class changingbookshelfmapping
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,9 +33,6 @@ namespace webapitwo.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Bookandshelfid")
-                        .HasColumnType("int");
-
                     b.Property<int>("Bookshelfandbookid")
                         .HasColumnType("int");
 
@@ -46,35 +43,9 @@ namespace webapitwo.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Userandbookid")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.ToTable("Books");
-                });
-
-            modelBuilder.Entity("webapitwo.Model.Bookandshelf", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Bookid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Shelfid")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Bookid");
-
-                    b.HasIndex("Shelfid");
-
-                    b.ToTable("Bookandshelf", (string)null);
                 });
 
             modelBuilder.Entity("webapitwo.Model.Bookshelf", b =>
@@ -179,9 +150,6 @@ namespace webapitwo.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Bookandshelfid")
-                        .HasColumnType("int");
-
                     b.Property<int>("Bookshelfandshelfid")
                         .HasColumnType("int");
 
@@ -194,8 +162,6 @@ namespace webapitwo.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Userid");
 
                     b.ToTable("Shelf", (string)null);
                 });
@@ -218,12 +184,6 @@ namespace webapitwo.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Shelfid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Userandbookid")
-                        .HasColumnType("int");
-
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -232,48 +192,6 @@ namespace webapitwo.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User", (string)null);
-                });
-
-            modelBuilder.Entity("webapitwo.Model.Userandbook", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Bookid")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Userid")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Bookid");
-
-                    b.HasIndex("Userid");
-
-                    b.ToTable("Userandbook", (string)null);
-                });
-
-            modelBuilder.Entity("webapitwo.Model.Bookandshelf", b =>
-                {
-                    b.HasOne("webapitwo.Model.Book", "Book")
-                        .WithMany("Bookandshelves")
-                        .HasForeignKey("Bookid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("webapitwo.Model.Shelf", "Shelf")
-                        .WithMany("Bookandshelfs")
-                        .HasForeignKey("Shelfid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("Shelf");
                 });
 
             modelBuilder.Entity("webapitwo.Model.Bookshelfandbook", b =>
@@ -333,43 +251,9 @@ namespace webapitwo.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("webapitwo.Model.Shelf", b =>
-                {
-                    b.HasOne("webapitwo.Model.User", "Oneuser")
-                        .WithMany("Shelves")
-                        .HasForeignKey("Userid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Oneuser");
-                });
-
-            modelBuilder.Entity("webapitwo.Model.Userandbook", b =>
-                {
-                    b.HasOne("webapitwo.Model.Book", "Book")
-                        .WithMany("userandbooks")
-                        .HasForeignKey("Bookid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("webapitwo.Model.User", "User")
-                        .WithMany("userandbooks")
-                        .HasForeignKey("Userid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("webapitwo.Model.Book", b =>
                 {
-                    b.Navigation("Bookandshelves");
-
                     b.Navigation("Bookshelfandbooks");
-
-                    b.Navigation("userandbooks");
                 });
 
             modelBuilder.Entity("webapitwo.Model.Bookshelf", b =>
@@ -383,18 +267,12 @@ namespace webapitwo.Migrations
 
             modelBuilder.Entity("webapitwo.Model.Shelf", b =>
                 {
-                    b.Navigation("Bookandshelfs");
-
                     b.Navigation("Bookshelfandshelfs");
                 });
 
             modelBuilder.Entity("webapitwo.Model.User", b =>
                 {
                     b.Navigation("Bookshelfandusers");
-
-                    b.Navigation("Shelves");
-
-                    b.Navigation("userandbooks");
                 });
 #pragma warning restore 612, 618
         }

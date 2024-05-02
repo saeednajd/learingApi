@@ -14,11 +14,7 @@ namespace webapitwo.Model
         public string Username { get; set; }
         public string Password { get; set; }
         public DateTime Joindate { get; set; }
-        public int Shelfid { get; set; }
-        public List<Shelf> Shelves { get; set; }
 
-        public int Userandbookid { get; set; }
-        public List<Userandbook> userandbooks { get; set; }
 
 
         public int Bookshelfanduserid { get; set; }

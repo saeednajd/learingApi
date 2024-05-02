@@ -16,7 +16,6 @@ namespace webapitwo.Mapping
             builder.HasKey(x=>x.Id);
             builder.Property(x=>x.Name).HasMaxLength(255);
 
-            builder.HasOne(x=>x.Oneuser).WithMany(x=>x.Shelves).HasForeignKey(x=>x.Userid);
 
             builder.HasMany(x=>x.Bookshelfandshelfs).WithOne(x=>x.Shelf).HasForeignKey(x=>x.Shelfid);
             
