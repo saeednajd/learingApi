@@ -10,21 +10,21 @@ namespace webapitwo.Model
         public int Id { get; set; }
         public int Bookstatus { get; set; }
 
-        public int Bookshelfandbookid { get; set; }
-        public List<Bookshelfandbook> Bookshelfandbooks { get; set; }
+        public int Userid { get; set; }
+        public User User { get; set; }
 
+        public int Bookid { get; set; }
+        public Book Book { get; set; }
 
-        public int Bookshelfandshelfid { get; set; }
-        public List<Bookshelfandshelf> Bookshelfandshelves { get; set; }
-
-        public int Bookshelfanduserid { get; set; }
-        public List<Bookshelfanduser> Bookshelfandusers { get; set; }
-
-        public Bookshelf(int bookstatus)
+        public int Shelfid { get; set; }
+        public Shelf Shelf { get; set; }
+        public Bookshelf(int Bstats, int Uid, int Bid, int Shid)
         {
 
-            Bookstatus = bookstatus;
-
+            Bookid = Bid;
+            Bookstatus = Bstats;
+            Userid = Uid;
+            Shelfid = Shid;
         }
     }
 }

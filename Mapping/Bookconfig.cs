@@ -8,13 +8,15 @@ using webapitwo.Model;
 
 namespace webapitwo.Mapping
 {
-    public class Bookshelfmapping : IEntityTypeConfiguration<Bookshelf>
+    public class Bookconfig : IEntityTypeConfiguration<Book>
     {
-        public void Configure(EntityTypeBuilder<Bookshelf> builder)
+        public void Configure(EntityTypeBuilder<Book> builder)
         {
-            builder.ToTable("Bookshelf");
-            builder.HasKey(x=>x.Id);
+            builder.ToTable("Book");
+            builder.HasKey(x => x.Id);
             
         }
+
+        
     }
 }

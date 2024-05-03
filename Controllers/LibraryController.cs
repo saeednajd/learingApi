@@ -167,12 +167,15 @@ namespace webapitwo.Controllers
         [HttpPost]
         [Route("/api/[controller]/Bookshelf")]
 
-        public ActionResult<Bookshelf> AddBookshelf(int Bookstatus)
+        public ActionResult<Bookshelf> AddBookshelf([FromRoute] int bookshelfid, int userids, int bookid, int shelfid, int bookstatus)
         {
-            var newBookshelf = new Bookshelf(Bookstatus);
-            _context.Bookshelves.Add(newBookshelf);
 
-            return CreatedAtAction(nameof(GetUser), new { id = newBookshelf.Id }, newBookshelf);
+            Bookshelf newBookshelf = new(Bstats: bookstatus, Uid: userids, Bid: bookid, Shid: shelfid);
+
+            // var newBookshelf = new Bookshelf(bookstatus, userids, bookid, shelfid);
+            _context.Bookshelves.Add(newBookshelf);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetOneBookshelf), new { id = newBookshelf.Id }, newBookshelf);
         }
 
 
@@ -181,25 +184,24 @@ namespace webapitwo.Controllers
         // [HttpPut]
         // [Route("/api/[controller]/Bookshelf")]
 
-        // public ActionResult<Bookshelf> UpdateBookshelf([FromBody] int bookshelfid,int userid, int bookid, int shelfid, int bookstatus)
+        // public ActionResult<Bookshelf> UpdateBookshelf([FromRoute] int bookshelfid, int userid, int bookid, int shelfid, int bookstatus)
         // {
 
-        //     var mybookshelf = _context.Bookshelves.Find(bookshelfid);
+        //     // var newbookshelf = Helpers.Helpers.Makenewbookshelf(bookstatus);
 
-        //     var newbooshelfandshelf = new Bookshelfandshelf(mybookshelf.Id, shelfid);
-
-            
-        //     var shelfToUpdate = _context.Shelves.FirstOrDefault(s => s.Id == shelfid);
-        //     if (shelfToUpdate != null)
+        //     var bookshelf = _context.Bookshelves.Find(bookshelfid);
+        //     if (bookshelf == null)
         //     {
-        //         shelfToUpdate.Bookshelfandshelfid= newbooshelfandshelf.Id;
-        //         _context.SaveChanges();
-        //     }
-        //     else{
         //         return NotFound();
         //     }
+        //     bookshelf.Userid = userid;
+        //     bookshelf.Bookid = bookid;
+        //     bookshelf.Shelfid = shelfid;
+        //     bookshelf.Bookstatus = bookstatus;
 
-            
+        //     _context.SaveChanges();
+        //     return NoContent();
+
         // }
     }
 

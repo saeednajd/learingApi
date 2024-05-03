@@ -12,8 +12,8 @@ namespace webapitwo.Model
         public string Name { get; set; }
         public int Userid { get; set; }
 
-        public int Bookshelfandshelfid { get; set; }
-        public List<Bookshelfandshelf> Bookshelfandshelfs { get; set; }
+        public int Bokshelfid { get; set; }
+        public List<Bookshelf> Bookshelves { get; set; }
         public Shelf(String name)
         {
             Name = name;

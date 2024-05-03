@@ -15,12 +15,8 @@ namespace webapitwo.Model
         public string Password { get; set; }
         public DateTime Joindate { get; set; }
 
+        public List<Bookshelf> Bookshelves { get; set; }
 
-
-        public int Bookshelfanduserid { get; set; }
-        public List<Bookshelfanduser> Bookshelfandusers { get; set; }
-
-        
         public User(string username, string password)
         {
             Username = username;

@@ -13,12 +13,14 @@ namespace webapitwo.Model
 
 
         public int Pages { get; set; }
-        
 
 
-        public int Bookshelfandbookid { get; set; }
-        public List<Bookshelfandbook> Bookshelfandbooks { get; set; }
-        
+
+        public List<Bookshelf> bookshelves
+        {
+            get; set;
+        }
+
         public Book(string title, int pages)
         {
             Title = title;
