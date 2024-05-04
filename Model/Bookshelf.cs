@@ -7,6 +7,9 @@ namespace webapitwo.Model
 {
     public class Bookshelf
     {
+
+
+        
         public int Id { get; set; }
         public int Bookstatus { get; set; }
 
@@ -18,13 +21,13 @@ namespace webapitwo.Model
 
         public int Shelfid { get; set; }
         public Shelf Shelf { get; set; }
-        public Bookshelf(int Bstats, int Uid, int Bid, int Shid)
-        {
-
-            Bookid = Bid;
-            Bookstatus = Bstats;
-            Userid = Uid;
-            Shelfid = Shid;
-        }
+        public Bookshelf(int bookstatus, int userid, int bookid, int shelfid)
+    {
+        Bookstatus = bookstatus;
+        Userid = userid;
+        Bookid = bookid;
+        Shelfid = shelfid;
+    }
+        
     }
 }

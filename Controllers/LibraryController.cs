@@ -40,18 +40,21 @@ namespace webapitwo.Controllers
         }
         //post
 
+
+
+
         [HttpPost]
         [Route("/api/[controller]/Users")]
 
-        public ActionResult<User> AddUser(string username, string password)
+        public ActionResult<Book> AddUser(string username, string password)
         {
             var newuser = new User(username, password);
             _context.Users.Add(newuser);
+            _context.SaveChanges();
 
             return CreatedAtAction(nameof(GetUser), new { id = newuser.Id }, newuser);
         }
-
-
+        
         //books section
 
         [HttpGet]
@@ -170,7 +173,7 @@ namespace webapitwo.Controllers
         public ActionResult<Bookshelf> AddBookshelf([FromRoute] int bookshelfid, int userids, int bookid, int shelfid, int bookstatus)
         {
 
-            Bookshelf newBookshelf = new(Bstats: bookstatus, Uid: userids, Bid: bookid, Shid: shelfid);
+            Bookshelf newBookshelf = new(bookstatus: bookstatus, userid: userids, bookid: bookid, shelfid: shelfid);
 
             // var newBookshelf = new Bookshelf(bookstatus, userids, bookid, shelfid);
             _context.Bookshelves.Add(newBookshelf);
@@ -179,30 +182,7 @@ namespace webapitwo.Controllers
         }
 
 
-        // bookshelf put section
-
-        // [HttpPut]
-        // [Route("/api/[controller]/Bookshelf")]
-
-        // public ActionResult<Bookshelf> UpdateBookshelf([FromRoute] int bookshelfid, int userid, int bookid, int shelfid, int bookstatus)
-        // {
-
-        //     // var newbookshelf = Helpers.Helpers.Makenewbookshelf(bookstatus);
-
-        //     var bookshelf = _context.Bookshelves.Find(bookshelfid);
-        //     if (bookshelf == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //     bookshelf.Userid = userid;
-        //     bookshelf.Bookid = bookid;
-        //     bookshelf.Shelfid = shelfid;
-        //     bookshelf.Bookstatus = bookstatus;
-
-        //     _context.SaveChanges();
-        //     return NoContent();
-
-        // }
+        
     }
 
 }
