@@ -54,7 +54,8 @@ namespace webapitwo.Controllers
 
             return CreatedAtAction(nameof(GetUser), new { id = newuser.Id }, newuser);
         }
-        
+
+
         //books section
 
         [HttpGet]
@@ -166,6 +167,37 @@ namespace webapitwo.Controllers
             return Bookshelf;
         }
 
+        [HttpPut]
+        [Route("/api/[controller]/{bookshelfid}/{bookstatus}/Bookshelf")]
+
+        public ActionResult<Bookshelf> Changebookstatus([FromRoute] int bookshelfid, int bookstatus)
+        {
+
+            var mybookshelf = _context.Bookshelves.FirstOrDefault(x => x.Id == bookshelfid);
+
+
+
+            if (mybookshelf == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+
+                //update method for bookshelf status
+                mybookshelf.UpdateStatus(bookstatus);
+
+                _context.Update(mybookshelf);
+                _context.SaveChanges();
+
+                return Ok(mybookshelf);
+            }
+
+
+
+
+        }
+
 
         [HttpPost]
         [Route("/api/[controller]/Bookshelf")]
@@ -182,7 +214,7 @@ namespace webapitwo.Controllers
         }
 
 
-        
+
     }
 
 }

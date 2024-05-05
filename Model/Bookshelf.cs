@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,6 +28,9 @@ namespace webapitwo.Model
         Userid = userid;
         Bookid = bookid;
         Shelfid = shelfid;
+    }
+    public  void UpdateStatus(int status){
+        Bookstatus = status;
     }
         
     }
