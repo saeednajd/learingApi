@@ -109,6 +109,32 @@ namespace webapitwo.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("/api/[controller]/Userswithonebookatlast")]
+        public ActionResult<string> Userswithonebookatlast()
+        {
+
+            var users = _context.Users
+            .Include(x => x.Bookshelves)
+
+            .Select(x => new
+            {
+                username = x.Username,
+                bookscount = x.Bookshelves.Count(y => y.Bookstatus == 0)
+            }).ToList();
+            var userswithonebookatlast = users.Where(x => x.bookscount >= 1).ToList();
+
+            if (userswithonebookatlast == null)
+            {
+                return NotFound();
+            }
+            else{
+                return JsonSerializer.Serialize(userswithonebookatlast);
+            }
+            
+
+        }
+
 
     }
 }
