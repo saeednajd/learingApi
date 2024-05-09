@@ -1,11 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using thirdapi.Model;
 using webapitwo.Model;
 namespace webapitwo.Controllers
 {
+
+    // public class User(string UserName);
+
+    // public record User2(string UserName);
+
+
     [ApiController]
     [Route("api/[controller]")]
     public class LibraryController : ControllerBase
@@ -15,15 +24,42 @@ namespace webapitwo.Controllers
         {
             _context = context;
         }
+
+
+        private Userdto Getcorrentuser()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var userclaims = identity.Claims;
+            var correntuser = new Userdto
+            {
+                Id = Convert.ToInt32(userclaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value),
+                Username = Convert.ToString(userclaims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value),
+                Joindate = Convert.ToDateTime(userclaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value),
+                Role =Convert.ToString(userclaims.FirstOrDefault(x=>x.Type==ClaimTypes.Role)?.Value)
+            };
+            return correntuser;
+        }
         //users section
         [HttpGet]
         [Route("/api/[controller]/Users")]
-        public ActionResult<List<User>> GetAllUsers()
+        [Authorize(Roles = "Admin")]
+
+        public ActionResult<List<Userdto>> GetAllUsers()
         {
 
-            var users = _context.Users.ToList();
+
+
+            var users = _context.Users.Select(x => new Userdto
+            {
+                Id = x.Id,
+                Username = x.Username,
+                Joindate = x.Joindate
+
+            }).ToList();
+
             return users;
         }
+
 
 
         [HttpGet]
@@ -46,9 +82,9 @@ namespace webapitwo.Controllers
         [HttpPost]
         [Route("/api/[controller]/Users")]
 
-        public ActionResult<Book> AddUser(string username, string password)
+        public ActionResult<Book> AddUser(string username, string password,string role)
         {
-            var newuser = new User(username, password);
+            var newuser = new User(username, password, role);
             _context.Users.Add(newuser);
             _context.SaveChanges();
 

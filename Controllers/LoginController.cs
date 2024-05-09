@@ -44,7 +44,6 @@ namespace thirdapi.Controllers
                 var token = Generate(user);
                 return Ok(token);
             }
-
             User Authenticate(Userlogin userlogin)
             {
                 var myuser = _context.Users.FirstOrDefault(x => x.Username.ToLower() == userlogin.Username.ToLower() && x.Password == userlogin.Password);
@@ -53,7 +52,6 @@ namespace thirdapi.Controllers
                     return myuser;
                 }
                 return null;
-
             }
             string Generate(User userlogin)
             {
@@ -61,19 +59,18 @@ namespace thirdapi.Controllers
                 var credentials = new SigningCredentials(securitykey, SecurityAlgorithms.HmacSha256);
                 var claims = new[]
                 {
-                new Claim(ClaimTypes.NameIdentifier, userlogin.Username)
+                new Claim(ClaimTypes.NameIdentifier, userlogin.Id.ToString()),
+                new Claim(ClaimTypes.Name, userlogin.Username),
+                new Claim(ClaimTypes.DateOfBirth, userlogin.Joindate.ToString()),
+                new Claim(ClaimTypes.Role, userlogin.Role)
             };
-                SecurityToken token = new JwtSecurityToken(_config["Jwt:Issuer"], _config["Jwt:Audience"],
+                var token = new JwtSecurityToken(_config["Jwt:Issuer"], _config["Jwt:Audience"],
                 claims, expires: DateTime.Now.AddMinutes(10), signingCredentials: credentials);
 
                 var result = new JwtSecurityTokenHandler().WriteToken(token);
                 return result;
-
             }
             return NotFound("User not found!!");
-
-
-
         }
 
 

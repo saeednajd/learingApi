@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\My project\\thirdapi\\webapitwo.csproj": {}
+    "D:\\My project\\thirdapi\\webapitwo.csproj": {}
   },
   "projects": {
-    "d:\\My project\\thirdapi\\webapitwo.csproj": {
+    "D:\\My project\\thirdapi\\webapitwo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\My project\\thirdapi\\webapitwo.csproj",
+        "projectUniqueName": "D:\\My project\\thirdapi\\webapitwo.csproj",
         "projectName": "webapitwo",
-        "projectPath": "d:\\My project\\thirdapi\\webapitwo.csproj",
+        "projectPath": "D:\\My project\\thirdapi\\webapitwo.csproj",
         "packagesPath": "C:\\Users\\Saeed\\.nuget\\packages\\",
-        "outputPath": "d:\\My project\\thirdapi\\obj\\",
+        "outputPath": "D:\\My project\\thirdapi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Saeed\\AppData\\Roaming\\NuGet\\NuGet.Config"
