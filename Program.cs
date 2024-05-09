@@ -1,15 +1,36 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using webapitwo;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// adding Jwt service to project 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(Options =>
+{
+    Options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
 
+    };
+});
+// end of Jwt 
+builder.Services.AddMvc();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<Libcontext>(x=>x.UseSqlServer(@"Server=DESKTOP-O6QC243;Database=Apilib;Trusted_Connection=True;TrustServerCertificate=True
+builder.Services.AddDbContext<Libcontext>(x => x.UseSqlServer(@"Server=DESKTOP-O6QC243;Database=Apilib;Trusted_Connection=True;TrustServerCertificate=True
 "));
 var app = builder.Build();
 
@@ -23,7 +44,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-
+// app.UseEndpoints(endpoints =>
+// {
+//     endpoints.MapControllers();
+// });
 app.MapControllers();
 
 app.Run();
