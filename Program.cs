@@ -30,7 +30,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<Libcontext>(x => x.UseSqlServer(@"Server=DESKTOP-O6QC243;Database=Apilib;Trusted_Connection=True;TrustServerCertificate=True
+builder.Services.AddDbContext<Libcontext>(x => x.UseSqlServer(@"Server=DESKTOP-GQIE69R;Database=Apilib;Trusted_Connection=True;TrustServerCertificate=True
 "));
 var app = builder.Build();
 

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\My project\\thirdapi\\webapitwo.csproj": {}
+    "D:\\Csharp\\learingApi\\webapitwo.csproj": {}
   },
   "projects": {
-    "D:\\My project\\thirdapi\\webapitwo.csproj": {
+    "D:\\Csharp\\learingApi\\webapitwo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\My project\\thirdapi\\webapitwo.csproj",
+        "projectUniqueName": "D:\\Csharp\\learingApi\\webapitwo.csproj",
         "projectName": "webapitwo",
-        "projectPath": "D:\\My project\\thirdapi\\webapitwo.csproj",
-        "packagesPath": "C:\\Users\\Saeed\\.nuget\\packages\\",
-        "outputPath": "D:\\My project\\thirdapi\\obj\\",
+        "projectPath": "D:\\Csharp\\learingApi\\webapitwo.csproj",
+        "packagesPath": "C:\\Users\\ASUS\\.nuget\\packages\\",
+        "outputPath": "D:\\Csharp\\learingApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Saeed\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\ASUS\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
