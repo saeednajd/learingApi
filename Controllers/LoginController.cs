@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using learingApi.Tools;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -44,35 +45,38 @@ namespace thirdapi.Controllers
                 var token = Generate(user);
                 return Ok(token);
             }
-            User Authenticate(Userlogin userlogin)
+
+
+            return NotFound("User not found!!");
+        }
+
+        private User Authenticate(Userlogin userlogin)
+        {
+            var hashedpass = Passwordhasher.Hashpass(userlogin.Password);
+            var myuser = _context.Users.FirstOrDefault(x => x.Username.ToLower() == userlogin.Username.ToLower() && x.Password == hashedpass);
+            if (myuser != null)
             {
-                var myuser = _context.Users.FirstOrDefault(x => x.Username.ToLower() == userlogin.Username.ToLower() && x.Password == userlogin.Password);
-                if (myuser != null)
-                {
-                    return myuser;
-                }
-                return null;
+                return myuser;
             }
-            string Generate(User userlogin)
+            return null;
+        }
+        private string Generate(User userlogin)
+        {
+            var securitykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var credentials = new SigningCredentials(securitykey, SecurityAlgorithms.HmacSha256);
+            var claims = new[]
             {
-                var securitykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-                var credentials = new SigningCredentials(securitykey, SecurityAlgorithms.HmacSha256);
-                var claims = new[]
-                {
                 new Claim(ClaimTypes.NameIdentifier, userlogin.Id.ToString()),
                 new Claim(ClaimTypes.Name, userlogin.Username),
                 new Claim(ClaimTypes.DateOfBirth, userlogin.Joindate.ToString()),
                 new Claim(ClaimTypes.Role, userlogin.Role)
             };
-                var token = new JwtSecurityToken(_config["Jwt:Issuer"], _config["Jwt:Audience"],
-                claims, expires: DateTime.Now.AddMinutes(10), signingCredentials: credentials);
+            var token = new JwtSecurityToken(_config["Jwt:Issuer"], _config["Jwt:Audience"],
+            claims, expires: DateTime.Now.AddMinutes(10), signingCredentials: credentials);
 
-                var result = new JwtSecurityTokenHandler().WriteToken(token);
-                return result;
-            }
-            return NotFound("User not found!!");
+            var result = new JwtSecurityTokenHandler().WriteToken(token);
+            return result;
         }
-
 
 
 

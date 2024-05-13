@@ -1,85 +1,99 @@
-// using System;
-// using System.Collections.Generic;
-// using System.Linq;
-// using System.Threading.Tasks;
-// using Microsoft.AspNetCore.Mvc;
-// using webapitwo.Model;
-// namespace webapitwo.Controllers
-// {
-//     [ApiController]
-//     [Route("[controller]")]
-//     public class UserController : ControllerBase
-//     {
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using thirdapi.Model;
+using webapitwo.Model;
+using learingApi.Tools;
+namespace webapitwo.Controllers
+{
 
-//         private readonly Libcontext _context;
-//         public UserController(Libcontext context)
-//         {
-//             _context = context;
-//         }
-
-//         [HttpGet]
-//         public ActionResult<List<User>> GetAll()
-//         {
-
-//             var users = _context.Users.ToList();
-//             return users;
-//         }
-
-//         // GET by Id action
-//         [HttpGet("{id}")]
-//         public ActionResult<User> Get(int id)
-//         {
-//             var user = _context.Users.FirstOrDefault(x => x.Id == id);
-//             return user;
-//         }
+    [ApiController]
+    [Route("api/[controller]")]
+    public class UserController : ControllerBase
+    {
+        private readonly Libcontext _context;
+        public UserController(Libcontext context)
+        {
+            _context = context;
+        }
 
 
+        // private Userdto Getcorrentuser()
+        // {
+        //     var identity = HttpContext.User.Identity as ClaimsIdentity;
+        //     var userclaims = identity.Claims;
+        //     var correntuser = new Userdto
+        //     {
+        //         Id = Convert.ToInt32(userclaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value),
+        //         Username = Convert.ToString(userclaims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value),
+        //         Joindate = Convert.ToDateTime(userclaims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value),
+        //         Role = Convert.ToString(userclaims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value)
+        //     };
+        //     return correntuser;
+        // }
+        //users section
+        [HttpGet]
+        [Route("/api/[controller]/Users")]
+        [Authorize(Roles = "Admin")]
+
+        public ActionResult<List<Userdto>> GetAllUsers()
+        {
+
+            var users = _context.Users.Select(x => new Userdto
+            {
+                Id = x.Id,
+                Username = x.Username,
+                Joindate = x.Joindate
+
+            }).ToList();
+
+            return users;
+        }
 
 
-//         // POST action
 
-//         [HttpPost]
-//         public IActionResult Create(string username, string password)
-//         {
-//             var newuser = new User(username, password);
+        [HttpGet]
+        [Route("/api/[controller]/{id}/Users")]
+        [Authorize(Roles ="Admin")]
+        public ActionResult<Userdto> GetUser([FromRoute] int id)
+        {
+            var user = _context.Users.FirstOrDefault(x => x.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var myuser = new Userdto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Role = user.Role,
+                Joindate = user.Joindate
+            };
 
-//             _context.Users.Add(newuser);
-//             _context.SaveChanges();
-//             return CreatedAtAction(nameof(Get), new { id = newuser.Id }, newuser);
-//         }
-//         // [HttpPost]
-//         // public IActionResult Create(Pizza pizza)
-//         // {
-//         //     PizzaService.Add(pizza);
-//         //     return CreatedAtAction(nameof(Get), new { id = pizza.Id }, pizza);
-//         // }
-//         // // PUT action
-//         // [HttpPut("{id}")]
-//         // public IActionResult Update(int id, Pizza pizza)
-//         // {
-//         //     if (id != pizza.Id)
-//         //         return BadRequest();
+            return myuser;
+        }
+        //post
 
-//         //     var existingPizza = PizzaService.Get(id);
-//         //     if (existingPizza is null)
-//         //         return NotFound();
 
-//         //     PizzaService.Update(pizza);
 
-//         //     return NoContent();
-//         // }
-//         // // DELETE action
-//         // [HttpDelete("{id}")]
-//         // public IActionResult Delete(int id)
-//         // {
-//         //     var pizza = PizzaService.Get(id);
 
-//         //     if (pizza is null)
-//         //         return NotFound();
+        [HttpPost]
+        [Route("/api/[controller]/Users")]
+        // [Authorize(Roles ="Admin")]
 
-//         //     PizzaService.Delete(id);
+        public ActionResult<User> AddUser(string username, string password, string role)
+        {
+            var hashedpass = Passwordhasher.Hashpass(password);
+            var newuser = new User(username, hashedpass, role);
+            _context.Users.Add(newuser);
+            _context.SaveChanges();
 
-//         //     return NoContent();
-//         // }
-//     }
-// }
+            return CreatedAtAction(nameof(GetUser), new { id = newuser.Id }, newuser);
+        }
+    }
+
+}
