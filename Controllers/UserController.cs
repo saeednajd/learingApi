@@ -21,7 +21,6 @@ namespace webapitwo.Controllers
             _context = context;
         }
 
-
         // private Userdto Getcorrentuser()
         // {
         //     var identity = HttpContext.User.Identity as ClaimsIdentity;
@@ -54,8 +53,6 @@ namespace webapitwo.Controllers
             return users;
         }
 
-
-
         [HttpGet]
         [Route("/api/[controller]/{id}/Users")]
         [Authorize(Roles ="Admin")]
@@ -78,12 +75,9 @@ namespace webapitwo.Controllers
         }
         //post
 
-
-
-
         [HttpPost]
         [Route("/api/[controller]/Users")]
-        // [Authorize(Roles ="Admin")]
+        [Authorize(Roles ="Admin")]
 
         public ActionResult<User> AddUser(string username, string password, string role)
         {
