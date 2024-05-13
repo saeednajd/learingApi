@@ -26,7 +26,6 @@ namespace learingApi.Controllers
 
 
         [HttpGet]
-        [Route("/api/[controller]/Bookshelf")]
 
 
         public ActionResult<List<Bookshelf>> GetAllBookshelves()
@@ -36,8 +35,7 @@ namespace learingApi.Controllers
             return Bookshelf;
         }
 
-        [HttpGet]
-        [Route("/api/[controller]/{id}/Bookshelf")]
+        [HttpGet("{id}")]
 
 
         public ActionResult<Bookshelf> GetOneBookshelf([FromRoute] int id)
@@ -84,7 +82,6 @@ namespace learingApi.Controllers
 
 
         [HttpPost]
-        [Route("/api/[controller]/Bookshelf")]
         [Authorize(Roles = "Admin")]
 
         public ActionResult<Bookshelf> AddBookshelf([FromRoute] int bookshelfid, int userids, int bookid, int shelfid, int bookstatus)

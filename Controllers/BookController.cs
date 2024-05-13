@@ -13,8 +13,6 @@ namespace learingApi.Controllers
     [Route("api/[controller]")]
     public class BookController : ControllerBase
     {
-
-
         private readonly Libcontext _context;
 
         public BookController(Libcontext context)
@@ -23,7 +21,6 @@ namespace learingApi.Controllers
         }
 
         [HttpGet]
-        [Route("/api/[controller]/Books")]
 
         public ActionResult<List<Book>> GetAllBooks()
         {
@@ -32,9 +29,7 @@ namespace learingApi.Controllers
             return books;
         }
 
-        [HttpGet]
-        [Route("/api/[controller]/{id}/Books")]
-
+        [HttpGet("{id}")]
 
         public ActionResult<Book> GetOneBook([FromRoute] int id)
         {
@@ -48,7 +43,6 @@ namespace learingApi.Controllers
         }
 
         [HttpPost("Books")]
-        // [Route("/api/[controller]/Books")]
 
         [Authorize(Roles = "Admin")]
 
