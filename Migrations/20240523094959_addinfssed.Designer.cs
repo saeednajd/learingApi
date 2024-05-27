@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webapitwo;
 
@@ -11,9 +12,11 @@ using webapitwo;
 namespace webapitwo.Migrations
 {
     [DbContext(typeof(Libcontext))]
-    partial class LibcontextModelSnapshot : ModelSnapshot
+    [Migration("20240523094959_addinfssed")]
+    partial class addinfssed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,14 +54,14 @@ namespace webapitwo.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "aee423a8-8370-4b31-a168-867e6c7722f1",
+                            Id = "d2f93d56-7247-425c-8efd-afb87d5b66e9",
                             ConcurrencyStamp = "1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "be074e02-b4ac-4621-b3f6-13f23f08d7e0",
+                            Id = "f9866e6f-66ca-4f6d-998d-0ef6d500bdb4",
                             ConcurrencyStamp = "2",
                             Name = "User",
                             NormalizedName = "USER"
@@ -302,42 +305,6 @@ namespace webapitwo.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "a2d2f43b-d465-4f32-add1-f86fb9783536",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "cd553d00-7638-4536-8635-e331d3d64628",
-                            Email = "admin@example.com",
-                            EmailConfirmed = true,
-                            Joindate = new DateTime(2024, 5, 23, 13, 23, 0, 795, DateTimeKind.Local).AddTicks(8837),
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@EXAMPLE.COM",
-                            NormalizedUserName = "ADMIN@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEN0ElSl+tZxbWixatWW2yTDV+I3Ki4W83BktsTZYL3LcplLexEmODmqWdZ0XyDusWQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "df480e93-6dff-4710-ac14-e4f1889b7a98",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@example.com"
-                        },
-                        new
-                        {
-                            Id = "3cf93777-050b-448d-bc03-1b1b49413814",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "8b87d25f-ca35-469b-b48e-d98e4bee4b18",
-                            Email = "user@example.com",
-                            EmailConfirmed = true,
-                            Joindate = new DateTime(2024, 5, 23, 13, 23, 0, 888, DateTimeKind.Local).AddTicks(2102),
-                            LockoutEnabled = false,
-                            NormalizedEmail = "USER@EXAMPLE.COM",
-                            NormalizedUserName = "USER@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOGlo3pa1zOulejQv1JpUzb/CJ0CATkpmchUePCvI4K4NaqXjQTVh292WhukrUcIVg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "eca52f2d-e4ae-42b3-a9ca-eddcb4ab1763",
-                            TwoFactorEnabled = false,
-                            UserName = "user@example.com"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

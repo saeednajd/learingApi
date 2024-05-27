@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\My project\\webapitwo\\webapitwo.csproj": {}
+    "D:\\My project\\thirdapi\\webapitwo.csproj": {}
   },
   "projects": {
-    "D:\\My project\\webapitwo\\webapitwo.csproj": {
+    "D:\\My project\\thirdapi\\webapitwo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\My project\\webapitwo\\webapitwo.csproj",
+        "projectUniqueName": "D:\\My project\\thirdapi\\webapitwo.csproj",
         "projectName": "webapitwo",
-        "projectPath": "D:\\My project\\webapitwo\\webapitwo.csproj",
+        "projectPath": "D:\\My project\\thirdapi\\webapitwo.csproj",
         "packagesPath": "C:\\Users\\Saeed\\.nuget\\packages\\",
-        "outputPath": "D:\\My project\\webapitwo\\obj\\",
+        "outputPath": "D:\\My project\\thirdapi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Saeed\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -43,6 +43,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.5, )"
+            },
+            "Microsoft.AspnetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.5, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -62,6 +70,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
+            },
+            "Swashbuckle.AspNetCore.Filters": {
+              "target": "Package",
+              "version": "[8.0.2, )"
             }
           },
           "imports": [
@@ -83,7 +95,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.205/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
